@@ -1,0 +1,22 @@
+server:
+  port: 8801
+spring:
+  profiles:
+    active: dev
+fbox:
+  topic_prefix: Topic/flexem/fbox/   #Topic/flexem/fbox/{boxid}/system/{}
+  topic_suffix: /system/
+  pub_topic: MonitorData,Status,Taglist,Topiclist #盒子推送的主题
+  sub_topic: WriteData,Pause,Reboot,MDataPubNow,MDataPubCycle,MDPCS,GetInfo #盒子订阅的主题
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mybatis/**/*Mapper.xml
+  typeAliasesPackage: com.petrobest.pahorabbitmq.**.domain
+logging:
+  level:
+    com.petrobest.pahorabbitmq: debug
+
+
+

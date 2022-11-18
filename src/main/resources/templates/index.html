@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" value="pause" onclick="pause()">
+<p id="result"></p>
+</body>
+<script src="js/jquery-3.4.0.min.js"></script>
+<script>
+    function pause() {
+        var id = ["300218020188","123"];
+        $.ajax({
+            url: "/fbox/publish/pause",
+            type: "POST",
+            traditional: true, //防止过度序列化，来传递数组
+            data: {
+                ids: id,
+                enable: true
+            },
+            success: function (data) {
+                console.log(data)
+                $("#result").text(data)
+            }
+
+        });
+
+    }
+</script>
+</html>

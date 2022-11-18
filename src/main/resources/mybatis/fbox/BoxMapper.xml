@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.petrobest.pahorabbitmq.fbox.dao.BoxDao">
+
+
+    <resultMap id="boxDO" type="com.petrobest.pahorabbitmq.fbox.domain.BoxDO">
+        <id column="box_id" property="boxId" javaType="long"/>
+        <result column="box_device_id" property="boxDeviceId"/>
+        <result column="box_name" property="boxName"/>
+        <result column="box_stat" property="boxStat"/>
+        <result column="box_addr" property="boxAddr"/>
+        <result column="box_group" property="boxGroup"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.petrobest.pahorabbitmq.fbox.domain.BoxDO">
+		insert into serv_monitorpoint
+		(id, device_id, receive_time, receice_data)
+		values
+		(#{id},	#{deviceId},#{receiveTime},#{receiveData})
+	</insert>
+
+    <select id="list" resultType="com.petrobest.pahorabbitmq.fbox.domain.BoxDO">
+        select box_id,box_device_id,box_name,box_stat,box_addr,box_group from serv_box
+        <where>
+            <if test="boxId != null and boxId != ''">and box_id = #{boxId}</if>
+            <if test="boxDeviceId != null and boxDeviceId != ''">and box_device_id = #{boxDeviceId}</if>
+            <if test="boxName != null and boxName != ''">and box_name = #{boxName}</if>
+            <if test="boxStat != null and boxStat != ''">and box_stat = #{boxStat}</if>
+            <if test="boxAddr != null and boxAddr != ''">and box_addr = #{boxStat}</if>
+            <if test="boxGroup != null and boxGroup != ''">and box_group = #{boxGroup}</if>
+        </where>
+        order by box_id desc
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+</mapper>
